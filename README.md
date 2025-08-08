@@ -93,7 +93,16 @@ If for some reason you want to run WebGoat on a different port, you can do so by
 java -jar webgoat-2023.8.jar --webgoat.port=8001 --webwolf.port=8002
 ```
 
-For a full overview of all the parameters you can use, please check the [WebGoat properties file](webgoat-container/src/main/resources/application-{webgoat, webwolf}.properties).
+## Configuração segura de credenciais
+
+Todas as credenciais sensíveis (senhas, tokens, chaves) devem ser definidas via variáveis de ambiente e nunca hardcoded ou com valores default em arquivos versionados. Exemplo seguro:
+
+```properties
+server.ssl.key-store-password=${WEBGOAT_KEYSTORE_PASSWORD}
+spring.security.oauth2.client.registration.github.client-secret=${WEBGOAT_OAUTH_CLIENTSECRET}
+```
+
+Consulte a documentação oficial para práticas recomendadas de gerenciamento de segredos. Nunca exponha credenciais em logs, erros ou arquivos públicos.
 
 ## 4. Run from the sources
 
